@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:service_firebase/features/categories/view/category_view.dart';
 import '../../../core/widget/custom_text_field.dart';
+import '../../categories/cubit/get_category_cubit.dart';
 import '../cubit/login_cubit.dart';
 
 class LoginView extends StatefulWidget {
@@ -113,6 +115,15 @@ class _LoginViewState extends State<LoginView> {
                         const SnackBar(
                           content: Text('Login successful!'),
                           backgroundColor: Colors.green,
+                        ),
+                      );
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider(
+                            create: (context) => GetCategoryCubit(),
+                            child: const CategoryView(),
+                          ),
                         ),
                       );
                     } else if (state is LoginError) {
